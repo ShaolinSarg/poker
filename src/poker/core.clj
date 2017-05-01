@@ -8,8 +8,8 @@
   (let
         [[hand-1 rest-deck] (poker.cards/deal-hand (poker.cards/create-deck))
          [hand-2 rest-deck2](poker.cards/deal-hand rest-deck )]
-    (do (println (str "Player 1 has cards: " (apply str hand-1)))
-        (println (str "Player 2 has cards: " (apply str hand-2))))))
+    (do (println (str "Player 1 has cards: " (pr-str (map #(str (:value %) (:suit %)) hand-1))))
+        (println (str "Player 2 has cards: " (pr-str (map #(str (:value %) (:suit %)) hand-2)))))))
 
 
 (defn name-hand
