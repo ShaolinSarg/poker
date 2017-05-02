@@ -7,16 +7,22 @@
   (testing "a deck contains 52 unique cards"
     (is (= (count (create-deck)) 52))))
 
-(deftest high-card-tests
-  (testing "high-card"
+(deftest highest-card-tests
+  (testing "highest-card"
     (testing "should return the highest of 2 cards"
       (let [c1 (->Card :3 :H)
             c2 (->Card :6 :D)]
-        (is (= c2 (highCard c1 c2)))))
-    (testing "should return nil when the cards are equal"
-      (let [c1 (->Card :3 :H)
-            c2 (->Card :3 :D)]
-        (is (= nil (highCard c1 c2)))))))
+        (is (= c2 (highest-card c1 c2)))))))
+
+(deftest high-card-tests
+  (testing "high-card"
+    (testing "should return the highest card in a hand"
+      (let [hand #{(->Card :3 :H)
+                   (->Card :4 :D)
+                   (->Card :A :D)
+                   (->Card :K :D)
+                   (->Card :2 :D)}]
+        (is (= (->Card :A :D) (high-card hand)))))))
 
 (deftest flush-tests
   (testing "flush?"
