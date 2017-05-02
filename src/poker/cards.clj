@@ -6,6 +6,9 @@
 (def values '(:2 :3 :4 :5 :6 :7 :8 :9 :10 :J :Q :K :A))
 (def new-deck (for [v values s suits] (Card. v s)))
 
+(def straights (map #(into #{} %) (partition 5 1 (conj values :A))))
+
+
 (defn create-deck [] 
   (shuffle new-deck))
 
@@ -24,3 +27,7 @@
 (defn flush? [hand]
   (every? #(= (:suit %) (:suit (first hand))) hand))
 
+(defn straight? [hand]
+  (if (some #{(->> hand
+                   (map :value)
+                   (into #{}))} straights) true false))

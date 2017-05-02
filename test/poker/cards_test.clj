@@ -5,7 +5,7 @@
 
 (deftest deck-tests
   (testing "a deck contains 52 unique cards"
-    (is (= (count deck) 52))))
+    (is (= (count (create-deck)) 52))))
 
 (deftest high-card-tests
   (testing "high-card"
@@ -24,3 +24,21 @@
       (is (true? (flush? #{(->Card :3 :H) (->Card :4 :H)}))))
     (testing "should return false if not all cards are the same suit"
       (is (false? (flush? #{(->Card :3 :H) (->Card :4 :D)}))))))
+
+(deftest straight-tests
+  (let [straight-hand #{(->Card :A :H)
+                        (->Card :2 :D)
+                        (->Card :3 :C)
+                        (->Card :4 :S)
+                        (->Card :5 :H)}
+        not-straight-hand #{(->Card :A :H)
+                        (->Card :2 :D)
+                        (->Card :3 :C)
+                        (->Card :4 :S)
+                        (->Card :6 :H)}]
+    
+    (testing "straight?"
+      (testing "should return true if the hand is a straight"
+        (is (true? (straight? straight-hand))))
+      (testing "should return false if the hand is not a straight"
+        (is (false? (straight? not-straight-hand)))))))
