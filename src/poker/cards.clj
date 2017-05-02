@@ -37,3 +37,6 @@
   (if (some #{(->> hand
                    (map :value)
                    (into #{}))} straights) true false))
+
+(defn straight-flush? [hand]
+  (and (flush? hand) (straight? hand)))
