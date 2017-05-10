@@ -8,14 +8,16 @@
   (let
         [[hand-1 rest-deck] (poker.cards/deal-hand (poker.cards/create-deck))
          [hand-2 rest-deck2](poker.cards/deal-hand rest-deck )]
-    (do (println (str "Player 1 has cards: " (pr-str (map #(str (:value %) (:suit %)) hand-1))))
-        (println (str "Player 2 has cards: " (pr-str (map #(str (:value %) (:suit %)) hand-2)))))))
+    (println (str "Player 1 has cards: " (pr-str (map #(str (:value %) (:suit %)) hand-1))))
+    (println (str "Player 2 has cards: " (pr-str (map #(str (:value %) (:suit %)) hand-2))))
+    (println (str "The winner is Player " (who-won hand-1 hand-2)))))
 
 
-(defn name-hand
-  [num-same]
-  (cond
-    (= 2 num-same) :pair
-    (= 3 num-same) :3-of-a-kind
-    :else :4-of-a-kind))
+(defn who-won [hand1 hand2]
+  "returns the winner"
+  (let [p1-highest (high-card hand1)
+        p2-highest (high-card hand2)]
 
+    (if (= p1-highest (highest-card p1-highest p2-highest))
+      "one"
+      "two")))
